@@ -8,5 +8,5 @@ const driver = new webdriver.Builder()
 
 // Load the homepage
 driver.get("https://admin.partnermarketing.com/login").then(function () {
-    logger.login(driver);
+    logger.login(driver, "lenovo");
 });

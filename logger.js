@@ -8,62 +8,75 @@ const selectors = {
     passwordField: "//*[@id=\"loginPlainPassword\"]",
     loginButton: "/html/body/div/div[2]/div/div/div/form/button",
     manageSites: "/html/body/div/div[2]/div/div/div/div[1]/div/div/div[1]/div/a",
-    openDropdown: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[1]/td[2]/div[1]/a",
-    assetProducerOption: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[1]/td[2]/div[1]/ul/li[4]/a",
-    demoLogin: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[5]/td[2]/a",
-    sageLogin: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[6]/td[2]/a",
+    pageOne: {
+        openDropdown: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[1]/td[2]/div[1]/a",
+        assetProducerOption: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[1]/td[2]/div[1]/ul/li[4]/a",
+        demoLogin: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[5]/td[2]/a",
+        sageLogin: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[6]/td[2]/a",
+        pageTwoButton: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/div/div/ul/li[4]/a",
+    },
+    pageTwo: {
+        lenovoLogin: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[3]/td[2]/a",
+    },
     partnerAccept: "/html/body/div/div[1]/div/div[1]/div/div[2]/a[2]",
 };
 
 /**
  *  @param driver - the driver used to render the browser
+ *  @param partnerName - a lowercase string representation of the name of the partner which has to be logged in
  *  @return undefined
  *  @desc Logs the user into the Partnermarketing.com platform. Uses the Xpath as a selector.
  */
-let login = async (driver) => {
+let login = async (driver, partnerName) => {
 
     /**
-     *  @param selectorName - name of the Xpath selector for the element in the DOM
+     *  @param selector - name of the Xpath selector for the element in the DOM
      *  @return undefined
      *  @desc Asynchronously wait for the element to appear in the DOM, then click it
      */
-    let waitAndClick = async (selectorName) => {
-        let element = await driver.wait(until.elementLocated(By.xpath(selectors[selectorName])), 10000);
+    let waitAndClick = async (selector) => {
+        let element = await driver.wait(until.elementLocated(By.xpath(selector)), 10000);
         await element.click();
     };
 
     /**
-     *  @param selectorName - name of the Xpath selector for the element in the DOM
+     *  @param selector - name of the Xpath selector for the element in the DOM
      *  @param textContent - text to write in the DOM element
      *  @return undefined
      *  @desc Find the element in the DOM, then fill it
      */
-    let waitAndFill = (selectorName, textContent) => {
-        driver.findElement(webdriver.By.xpath(selectors[selectorName]))
+    let waitAndFill = (selector, textContent) => {
+        driver.findElement(webdriver.By.xpath(selector))
             .sendKeys(textContent);
     };
 
     // First login
-    waitAndFill("emailField", pmEmail);
-    waitAndFill("passwordField", pmPassword);
-    waitAndClick("loginButton")
-        // Partner selection
-        .then(() => waitAndClick("manageSites"))
-        .then(() => {
-            // Select role
-            waitAndClick("openDropdown").then(() => {
-                waitAndClick("assetProducerOption").then(() => {
-                    // Partner login
-                    waitAndClick("sageLogin").then(() => {
-                        driver.sleep(2000).then(() => {
-                            waitAndClick("partnerAccept").catch(e => {
-                                console.log(e);
-                            });
-                        });
-                    });
-                });
-            });
-        });
+    await waitAndFill(selectors.emailField, pmEmail);
+    await waitAndFill(selectors.passwordField, pmPassword);
+    await waitAndClick(selectors.loginButton);
+    // Partner selection
+    await waitAndClick(selectors.manageSites);
+    // Select role
+    await waitAndClick(selectors.pageOne.openDropdown);
+    await waitAndClick(selectors.pageOne.assetProducerOption);
+    // Partner login
+    switch (partnerName) {
+        case "sage":
+            await waitAndClick(selectors.pageOne.sageLogin);
+            break;
+        case "demo":
+            await waitAndClick(selectors.pageOne.demoLogin);
+            break;
+        case "lenovo":
+            await waitAndClick(selectors.pageOne.pageTwoButton);
+            await waitAndClick(selectors.pageTwo.lenovoLogin);
+            break;
+    }
+    // Confirm login
+    await driver.sleep(2000);
+    await waitAndClick(selectors.partnerAccept).catch(e => {
+        console.log(e);
+    });
 };
 
 module.exports = {
