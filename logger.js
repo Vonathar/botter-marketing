@@ -1,7 +1,8 @@
 const webdriver = require("selenium-webdriver"), By = webdriver.By, until = webdriver.until;
+require('dotenv').config()
 
-const pmEmail = "OMITTED";
-const pmPassword = "OMITTED";
+const pmEmail = process.env.PM_EMAIL;
+const pmPassword = process.env.PM_PASSWORD;
 
 const selectors = {
     emailField: "//*[@id=\"loginEmail\"]",
@@ -27,7 +28,7 @@ const selectors = {
  *  @return undefined
  *  @desc Logs the user into the Partnermarketing.com platform. Uses the Xpath as a selector.
  */
-let login = async (driver, partnerName) => {
+let pmLogin = async (driver, partnerName) => {
 
     /**
      *  @param selector - name of the Xpath selector for the element in the DOM
@@ -82,5 +83,5 @@ let login = async (driver, partnerName) => {
 };
 
 module.exports = {
-    login
+    pmLogin: pmLogin
 };
