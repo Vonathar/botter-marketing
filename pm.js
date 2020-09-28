@@ -1,5 +1,5 @@
 const webdriver = require("selenium-webdriver"), By = webdriver.By, until = webdriver.until;
-require('dotenv').config()
+require("dotenv").config();
 
 const pmEmail = process.env.PM_EMAIL;
 const pmPassword = process.env.PM_PASSWORD;
@@ -9,6 +9,7 @@ const selectors = {
     passwordField: "//*[@id=\"loginPlainPassword\"]",
     loginButton: "/html/body/div/div[2]/div/div/div/form/button",
     manageSites: "/html/body/div/div[2]/div/div/div/div[1]/div/div/div[1]/div/a",
+    partnerAccept: "/html/body/div/div[1]/div/div[1]/div/div[2]/a[2]",
     pageOne: {
         openDropdown: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[1]/td[2]/div[1]/a",
         assetProducerOption: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[1]/td[2]/div[1]/ul/li[4]/a",
@@ -19,20 +20,18 @@ const selectors = {
     pageTwo: {
         lenovoLogin: "/html/body/div/div[2]/div/div[2]/div/div[2]/div/table/tbody/tr[3]/td[2]/a",
     },
-    partnerAccept: "/html/body/div/div[1]/div/div[1]/div/div[2]/a[2]",
 };
 
 /**
- *  @param driver - the driver used to render the browser
  *  @param partnerName - a lowercase string representation of the name of the partner which has to be logged in
- *  @return undefined
+ *  @return Promise - resolved when the user successfully logs into the partner site, after it fully loads
  *  @desc Logs the user into the Partnermarketing.com platform. Uses the Xpath as a selector.
  */
-let pmLogin = async (driver, partnerName) => {
+let login = async (partnerName) => {
 
     /**
-     *  @param selector - name of the Xpath selector for the element in the DOM
-     *  @return undefined
+     *  @param selector - name of the Xpath selector for the element in the DOM, uses the selectors object
+     *  @return Promise - resolved after successfully clicking the DOM element
      *  @desc Asynchronously wait for the element to appear in the DOM, then click it
      */
     let waitAndClick = async (selector) => {
@@ -62,13 +61,13 @@ let pmLogin = async (driver, partnerName) => {
     await waitAndClick(selectors.pageOne.assetProducerOption);
     // Partner login
     switch (partnerName) {
-        case "sage":
+        case Partners.SAGE:
             await waitAndClick(selectors.pageOne.sageLogin);
             break;
-        case "demo":
+        case Partners.DEMO:
             await waitAndClick(selectors.pageOne.demoLogin);
             break;
-        case "lenovo":
+        case Partners.LENOVO:
             await waitAndClick(selectors.pageOne.pageTwoButton);
             await waitAndClick(selectors.pageTwo.lenovoLogin);
             break;
@@ -78,10 +77,9 @@ let pmLogin = async (driver, partnerName) => {
     await waitAndClick(selectors.partnerAccept).catch(e => {
         console.log(e);
     });
-    await driver.sleep(2500)
-    driver.close();
+
 };
 
 module.exports = {
-    pmLogin: pmLogin
+    login: login
 };
