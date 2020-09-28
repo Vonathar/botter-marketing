@@ -42,7 +42,7 @@ let login = async (partnerName) => {
     /**
      *  @param selector - name of the Xpath selector for the element in the DOM
      *  @param textContent - text to write in the DOM element
-     *  @return undefined
+     *  @return Promise - resolved after successfully submitting the given text
      *  @desc Find the element in the DOM, then fill it
      */
     let waitAndFill = (selector, textContent) => {
