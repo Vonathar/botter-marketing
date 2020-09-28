@@ -77,6 +77,8 @@ let login = async (driver, partnerName) => {
     await waitAndClick(selectors.partnerAccept).catch(e => {
         console.log(e);
     });
+    await driver.sleep(2500)
+    driver.close();
 };
 
 module.exports = {
