@@ -47,3 +47,25 @@ let get = async (endpoint, extraParams) => {
         });
     });
 };
+
+/**
+ *  @param endpoint - a string of the desired endpoint; must include the slash as a first char
+ *  @param extraParams - an object including all the parameters to be sent along with the request
+ *  @return the parsed JSON response for all available pages
+ *  @desc repeatedly call the get function until all available pages have been requested.
+ */
+let getAllPages = async (endpoint, extraParams) => {
+
+    let data = {};
+    let currentPage = 1;
+    let totalPages = 1;
+
+    do {
+        const response = await get(endpoint, {page: currentPage, ...extraParams});
+        data = {...data, ...response.data};
+        currentPage++;
+        totalPages = response.totalPages;
+    } while (currentPage <= totalPages);
+
+    return data;
+};
