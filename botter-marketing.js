@@ -29,8 +29,8 @@ global.driver = driver;
 let main = async () => {
     await driver.get("https://admin.partnermarketing.com/login");
     await pm.login(Partners.LENOVO);
-    await driver.sleep(2000);
-    driver.close();
+    await driver.sleep(5000);
+    driver.quit();
 };
 
 main();
