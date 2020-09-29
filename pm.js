@@ -1,3 +1,7 @@
+/**
+ * @summary Provides functions to login & access content in Partnermarketing.com
+ * @author  Gianmarco Caputo <gianmarco.caputo.uk@gmail.com>
+ */
 const webdriver = require("selenium-webdriver"), By = webdriver.By, until = webdriver.until;
 require("dotenv").config();
 
