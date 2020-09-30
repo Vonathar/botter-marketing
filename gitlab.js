@@ -4,6 +4,7 @@
  */
 const https = require("https");
 const querystring = require("querystring");
+const fs = require("fs");
 
 /**
  *  @param endpoint - a string of the desired endpoint; must include the slash as a first char
@@ -51,8 +52,8 @@ let get = async (endpoint, extraParams) => {
 /**
  *  @param endpoint - a string of the desired endpoint; must include the slash as a first char
  *  @param extraParams - an object including all the parameters to be sent along with the request
- *  @return the parsed JSON response for all available pages
- *  @desc repeatedly call the get function until all available pages have been requested.
+ *  @return Promise - resolved after the JSON data is written to a file successfully
+ *  @desc repeatedly calls the get function until all available pages have been requested and stored locally.
  */
 let getAllPages = async (endpoint, extraParams) => {
 
@@ -60,6 +61,7 @@ let getAllPages = async (endpoint, extraParams) => {
     let currentPage = 1;
     let totalPages = 1;
 
+    // Gets data from all pages
     do {
         const response = await get(endpoint, {page: currentPage, ...extraParams});
         data = data.concat(response.data);
@@ -67,7 +69,10 @@ let getAllPages = async (endpoint, extraParams) => {
         totalPages = response.totalPages;
     } while (currentPage <= totalPages);
 
-    return data;
+    // Stores the JSON data into a local file
+    await fs.writeFile("projects.json", JSON.stringify(data), err => {
+        if (err) throw err;
+    })
 };
 
 module.exports = {
