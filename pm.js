@@ -81,7 +81,6 @@ let login = async (partnerName) => {
     await waitAndClick(selectors.partnerAccept).catch(e => {
         console.log(e);
     });
-
 };
 
 module.exports = {

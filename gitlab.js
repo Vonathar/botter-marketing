@@ -21,7 +21,7 @@ let get = async (endpoint, extraParams) => {
 
         // Build the URL
         const params = querystring.stringify({
-            access_token: process.env.GITLAB_TOKEN, per_page: 100, membership: true, ...extraParams
+            access_token: process.env.GITLAB_TOKEN, per_page: 100, membership: true, simple: true, ...extraParams
         });
         let url = "https://git.twogether.io/api/v4" + endpoint + "?" + params;
 
@@ -56,16 +56,20 @@ let get = async (endpoint, extraParams) => {
  */
 let getAllPages = async (endpoint, extraParams) => {
 
-    let data = {};
+    let data = [];
     let currentPage = 1;
     let totalPages = 1;
 
     do {
         const response = await get(endpoint, {page: currentPage, ...extraParams});
-        data = {...data, ...response.data};
+        data = data.concat(response.data);
         currentPage++;
         totalPages = response.totalPages;
     } while (currentPage <= totalPages);
 
     return data;
 };
+
+module.exports = {
+    getAllPages: getAllPages
+}
