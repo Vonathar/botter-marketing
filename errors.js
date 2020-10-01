@@ -10,8 +10,20 @@
 class ProjectNotFoundError extends Error {
     constructor(message) {
         super(message);
-        this.name = 'ProjectNotFoundError';
+        this.name = "ProjectNotFoundError";
+    }
+}
+
+/**
+ *  @desc Throws a CampaignInfoParseError whenever parsing a "Campaign Info" ticket fails
+ *  @extends Error
+ */
+class CampaignInfoParseError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "CampaignInfoParseError";
     }
 }
 
 global.ProjectNotFoundError = ProjectNotFoundError;
+global.CampaignInfoParseError = CampaignInfoParseError;

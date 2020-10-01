@@ -138,6 +138,87 @@ let getIssuesByProject = async (projectName) => {
     return await getAllPages(`/projects/${project.id}/issues`);
 };
 
+/**
+ *  @return Object - a validated campaignInfo object which holds all the relevant campaign URLs
+ *  @throws CampaignInfoParseError - thrown by inner functions if the campaignInfo object failed to build
+ *  @desc Checks if the required campaign information is present before returning the campaignInfo object.
+ */
+let getCampaignInfo = async (projectName) => {
+
+    /**
+     *  @return Array - an array with all URLs found in the 'campaign info' ticket
+     *  @throws CampaignInfoParseError - thrown if the campaign info ticket cannot be found in any of the issues
+     *  @desc Finds the issue which holds campaign information, then returns all URLs found in its description.
+     */
+    let getAllUrls = async () => {
+
+        const issues = await getIssuesByProject(projectName);
+
+        for (let issue in issues) {
+            if (issues[issue].title.toLowerCase().includes("campaign info")) {
+                const urlRegex = /(http|ftp|https):\/\/([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/gm;
+                return issues[issue].description.match(urlRegex);
+            }
+        }
+
+        throw new CampaignInfoParseError("Failed to find 'Campaign Info' issue for project: " + projectName);
+    };
+
+    /**
+     *  @return Object - an object in which all relevant URLs are registered as keys
+     *  @throws CampaignInfoParseError - thrown if the campaignInfo object is missing 1 or more of the required URLs
+     *  @desc Iterates through all URLs found in the 'Campaign Info' issue, and uses the relevant ones to build
+     *        the campaignInfo object. Before returning, it validates the campaign info to make sure that it
+     *        includes all of the required URLs.
+     */
+    let buildCampaignInfo = async () => {
+
+        const urls = await getAllUrls();
+        let campaignInfo = {};
+
+        for (let url in urls) {
+
+            if (urls[url].includes("edit-campaign")) {
+                campaignInfo.edit = urls[url];
+            } else if (urls[url].includes("create-campaign")) {
+                campaignInfo.test = urls[url];
+            } else if (urls[url].includes("zpl.io")) {
+                campaignInfo.zeplin = urls[url];
+            } else if (urls[url].includes("invis.io")) {
+                campaignInfo.invision = urls[url];
+            }
+
+        }
+
+        /**
+         *  @return Object - a validated campaignInfo in which all required URLs are present
+         *  @throws CampaignInfoParseError - thrown if the campaignInfo object is missing 1 or more of the required URLs
+         *  @desc Checks if the required campaign information is present before returning the campaignInfo object.
+         */
+        let validateCampaignInfo = async (campaignInfo) => {
+
+            let requiredInfo = ["edit", "test"];
+            let missingInfo = [];
+
+            requiredInfo.forEach(info => {
+                if (campaignInfo[info] == null) {
+                    missingInfo.push(info);
+                }
+            });
+
+            if (missingInfo.length === 0) {
+                return campaignInfo;
+            } else {
+                throw new CampaignInfoParseError("Failed to find URL(s): " + missingInfo + " for project " + projectName);
+            }
+        };
+
+        return validateCampaignInfo(campaignInfo);
+    };
+
+    return buildCampaignInfo();
+};
+
 module.exports = {
-    getIssuesByProject: getIssuesByProject
+    getCampaignInfo: getCampaignInfo
 };
