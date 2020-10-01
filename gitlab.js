@@ -16,13 +16,13 @@ const fs = require("fs").promises;
  *              3. totalPages -> the number of pages for results with multiple pages
  *  @desc Initiate an asynchronous GET request to the Gitlab API at the given endpoint, returning a promise.
  */
-let get = async (endpoint, extraParams) => {
+let getPage = async (endpoint, extraParams) => {
 
     return new Promise((resolve, reject) => {
 
         // Build the URL
         const params = querystring.stringify({
-            access_token: process.env.GITLAB_TOKEN, per_page: 100, membership: true, simple: true, ...extraParams
+            access_token: process.env.GITLAB_TOKEN, per_page: 100, membership: true, ...extraParams
         });
         let url = "https://git.twogether.io/api/v4" + endpoint + "?" + params;
 
@@ -64,7 +64,7 @@ let getAllPages = async (endpoint, outputFile, extraParams) => {
 
     // Gets data from all pages
     do {
-        const response = await get(endpoint, {page: currentPage, ...extraParams});
+        const response = await getPage(endpoint, {page: currentPage, ...extraParams});
         data = data.concat(response.data);
         currentPage++;
         totalPages = response.totalPages;
