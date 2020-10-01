@@ -47,7 +47,7 @@ let login = async (partnerName) => {
      *  @param selector - name of the Xpath selector for the element in the DOM
      *  @param textContent - text to write in the DOM element
      *  @return Promise - resolved after successfully submitting the given text
-     *  @desc Find the element in the DOM, then fill it
+     *  @desc Find the text input node in the DOM, then fill it
      */
     let waitAndFill = (selector, textContent) => {
         driver.findElement(webdriver.By.xpath(selector))
