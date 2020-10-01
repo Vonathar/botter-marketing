@@ -51,6 +51,7 @@ let get = async (endpoint, extraParams) => {
 
 /**
  *  @param endpoint - a string of the desired endpoint; must include the slash as a first char
+ *  @param outputFile - the file path where the output should be written to; must include file extension
  *  @param extraParams - an object including all the parameters to be sent along with the request
  *  @return Promise - resolved after the JSON data is written to a file successfully
  *  @desc Repeatedly calls the get function until all available pages have been requested and stored locally.
