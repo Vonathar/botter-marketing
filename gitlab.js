@@ -4,7 +4,7 @@
  */
 const https = require("https");
 const querystring = require("querystring");
-const fs = require("fs");
+const fs = require("fs").promises;
 
 /**
  *  @param endpoint - a string of the desired endpoint; must include the slash as a first char
@@ -14,7 +14,7 @@ const fs = require("fs");
  *              1. data       -> parsed JSON response
  *              2. page       -> the current page for results with multiple pages
  *              3. totalPages -> the number of pages for results with multiple pages
- *  @desc initiate an asynchronous GET request to the Gitlab API at the given endpoint, returning a promise.
+ *  @desc Initiate an asynchronous GET request to the Gitlab API at the given endpoint, returning a promise.
  */
 let get = async (endpoint, extraParams) => {
 
@@ -53,9 +53,9 @@ let get = async (endpoint, extraParams) => {
  *  @param endpoint - a string of the desired endpoint; must include the slash as a first char
  *  @param extraParams - an object including all the parameters to be sent along with the request
  *  @return Promise - resolved after the JSON data is written to a file successfully
- *  @desc repeatedly calls the get function until all available pages have been requested and stored locally.
+ *  @desc Repeatedly calls the get function until all available pages have been requested and stored locally.
  */
-let getAllPages = async (endpoint, extraParams) => {
+let getAllPages = async (endpoint, outputFile, extraParams) => {
 
     let data = [];
     let currentPage = 1;
@@ -70,11 +70,44 @@ let getAllPages = async (endpoint, extraParams) => {
     } while (currentPage <= totalPages);
 
     // Stores the JSON data into a local file
-    await fs.writeFile("projects.json", JSON.stringify(data), err => {
-        if (err) throw err;
-    })
+    await fs.writeFile(outputFile, JSON.stringify(data), err => {
+        if (err) {
+            throw err;
+        }
+    });
+};
+
+/**
+ *  @param projectName - a lowercase string representing the name of the requested project
+ *  @param shouldProjectsUpdate - flag, tells whether the local projects should be updated before throwing an error
+ *  @return Object - a parsed JSON object that represents the project as per the Gitlab API
+ *  @throws ProjectNotFoundError - thrown when the project passed as an argument cannot be found
+ *  @desc Looks for the project in the locally stored list first for a faster retrieval. If the project cannot be
+ *        found, the local list is updated by querying the API again. The function recursively calls itself  once to
+ *        look for the project in the updated database, then throws a ProjectNotFoundError if it fails.
+ */
+let getProjectByName = async (projectName, shouldProjectsUpdate = true) => {
+
+    // Looks for the project locally
+    try {
+        let projectList = JSON.parse(await fs.readFile("projects.json"));
+
+        for (let project in projectList) {
+            if (projectList[project].name.toLowerCase() === projectName) {
+                return projectList[project];
+            }
+        }
+        // Updates the local project list, then calls itself one last time
+    } catch (e) {
+        if (shouldProjectsUpdate) {
+            await getAllPages("/projects", "projects.json");
+            await getProjectByName(projectName, false);
+        } else {
+            throw new ProjectNotFoundError("Project not found: " + projectName);
+        }
+    }
 };
 
 module.exports = {
-    getAllPages: getAllPages
-}
+    getProjectByName: getProjectByName
+};
