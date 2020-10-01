@@ -7,6 +7,22 @@ const querystring = require("querystring");
 const fs = require("fs").promises;
 
 /**
+ *  @param outputFile - the file path where the output should be written to; must include file extension.
+ *  @param data - the raw JSON data to be written to the output file
+ *  @return Promise - resolved after the JSON has been written in the outputFile
+ *  @desc Asynchronously writes the given JSON to the specified file path
+ */
+let writeLocalJSON = async (outputFile, data) => {
+    try {
+        await fs.writeFile(outputFile, JSON.stringify(data));
+    } catch (e) {
+        if (e) {
+            throw e;
+        }
+    }
+};
+
+/**
  *  @param endpoint - a string of the desired endpoint; must include the slash as a first char
  *  @param extraParams - an object including all the parameters to be sent along with the request
  *  @return Promise - resolved at the end of the response with data from the response, or rejected on error
@@ -51,12 +67,15 @@ let getPage = async (endpoint, extraParams) => {
 
 /**
  *  @param endpoint - a string of the desired endpoint; must include the slash as a first char
- *  @param outputFile - the file path where the output should be written to; must include file extension
+ *  @param outputFile - the file path where the output should be written to; must include file extension.
+ *                      if null, the function returns the JSON response without writing it to a file
  *  @param extraParams - an object including all the parameters to be sent along with the request
- *  @return Promise - resolved after the JSON data is written to a file successfully
- *  @desc Repeatedly calls the get function until all available pages have been requested and stored locally.
+ *  @return Promise - if outputFile is a file path. Resolved after the JSON data is written to a file successfully
+ *  @return JSON data - if outputFile  is null
+ *  @desc Repeatedly calls the get function until all available pages have been requested. If a file path for the
+ *        output file is specified, the JSON data is written there; otherwise, the JSON data is returned.
  */
-let getAllPages = async (endpoint, outputFile, extraParams) => {
+let getAllPages = async (endpoint, outputFile = null, extraParams) => {
 
     let data = [];
     let currentPage = 1;
@@ -70,12 +89,12 @@ let getAllPages = async (endpoint, outputFile, extraParams) => {
         totalPages = response.totalPages;
     } while (currentPage <= totalPages);
 
-    // Stores the JSON data into a local file
-    await fs.writeFile(outputFile, JSON.stringify(data), err => {
-        if (err) {
-            throw err;
-        }
-    });
+    // Writes or returns the JSON data
+    if (outputFile) {
+        await writeLocalJSON(outputFile, data);
+    } else {
+        return data;
+    }
 };
 
 /**
@@ -102,13 +121,23 @@ let getProjectByName = async (projectName, shouldProjectsUpdate = true) => {
     } catch (e) {
         if (shouldProjectsUpdate) {
             await getAllPages("/projects", "projects.json");
-            await getProjectByName(projectName, false);
+            return await getProjectByName(projectName, false);
         } else {
             throw new ProjectNotFoundError("Project not found: " + projectName);
         }
     }
 };
 
+/**
+ *  @param projectName - a lowercase string representing the name of the requested project
+ *  @return Object - a parsed JSON object that represents the issues as per the Gitlab API
+ *  @desc Queries the Gitlab API for all issues in the repository if the given project.
+ */
+let getIssuesByProject = async (projectName) => {
+    let project = await getProjectByName(projectName);
+    return await getAllPages(`/projects/${project.id}/issues`);
+};
+
 module.exports = {
-    getProjectByName: getProjectByName
+    getIssuesByProject: getIssuesByProject
 };
