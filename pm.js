@@ -59,7 +59,6 @@ let login = async (partnerName) => {
         try {
             driver.findElement(webdriver.By.xpath(selector))
                 .sendKeys(textContent);
-            console.log(selector);
         } catch (e) {
             throw new ElementNotFoundError("Text input not found in the DOM: " + selector);
         }
@@ -90,7 +89,7 @@ let login = async (partnerName) => {
     // Confirm login
     await driver.sleep(2000);
     await waitAndClick(selectors.partnerAccept).catch(e => {
-        console.log(e);
+        throw e;
     });
     await driver.sleep(5000);
 
