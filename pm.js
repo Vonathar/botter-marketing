@@ -35,23 +35,34 @@ let login = async (partnerName) => {
 
     /**
      *  @param selector - name of the Xpath selector for the element in the DOM, uses the selectors object
+     *  @throws ElementNotFoundError - thrown if the clickable element cannot be found in the DOM
      *  @return Promise - resolved after successfully clicking the DOM element
      *  @desc Asynchronously wait for the element to appear in the DOM, then click it
      */
     let waitAndClick = async (selector) => {
-        let element = await driver.wait(until.elementLocated(By.xpath(selector)), 10000);
-        await element.click();
+        try {
+            let element = await driver.wait(until.elementLocated(By.xpath(selector)), 10000);
+            await element.click();
+        } catch (e) {
+            throw new ElementNotFoundError("Clickable element not found in the DOM: " + selector);
+        }
     };
 
     /**
      *  @param selector - name of the Xpath selector for the element in the DOM
      *  @param textContent - text to write in the DOM element
+     *  @throws ElementNotFoundError - thrown if the text input cannot be found in the DOM
      *  @return Promise - resolved after successfully submitting the given text
      *  @desc Find the text input node in the DOM, then fill it
      */
     let waitAndFill = (selector, textContent) => {
-        driver.findElement(webdriver.By.xpath(selector))
-            .sendKeys(textContent);
+        try {
+            driver.findElement(webdriver.By.xpath(selector))
+                .sendKeys(textContent);
+            console.log(selector);
+        } catch (e) {
+            throw new ElementNotFoundError("Text input not found in the DOM: " + selector);
+        }
     };
 
     // First login
@@ -81,6 +92,8 @@ let login = async (partnerName) => {
     await waitAndClick(selectors.partnerAccept).catch(e => {
         console.log(e);
     });
+    await driver.sleep(5000);
+
 };
 
 module.exports = {

@@ -4,6 +4,17 @@
  */
 
 /**
+ *  @desc Throws a ElementNotFoundError whenever Selenium fails to locate an element in the DOM
+ *  @extends Error
+ */
+class ElementNotFoundError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "ElementNotFoundError";
+    }
+}
+
+/**
  *  @desc Throws a ProjectNotFoundError whenever a project cannot be found locally or remotely
  *  @extends Error
  */
