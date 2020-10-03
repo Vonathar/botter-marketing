@@ -4,7 +4,9 @@
  */
 const url = require("url");
 
-const routes = {};
+const routes = {
+    "/url": require("./url")
+};
 
 /**
  *  @param req - the request object

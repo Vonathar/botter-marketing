@@ -5,6 +5,7 @@
 const https = require("https");
 const querystring = require("querystring");
 const fs = require("fs").promises;
+const {existsSync} = require("fs");
 
 /**
  *  @param outputFile - the file path where the output should be written to; must include file extension.
@@ -99,33 +100,39 @@ let getAllPages = async (endpoint, outputFile = null, extraParams) => {
 
 /**
  *  @param projectName - a lowercase string representing the name of the requested project
- *  @param shouldProjectsUpdate - flag, tells whether the local projects should be updated before throwing an error
+ *  @param shouldProjectsUpdate - flag, true if the project list should be updated before iterating through it
  *  @return Object - a parsed JSON object that represents the project as per the Gitlab API
  *  @throws ProjectNotFoundError - thrown when the project passed as an argument cannot be found
  *  @desc Looks for the project in the locally stored list first for a faster retrieval. If the project cannot be
  *        found, the local list is updated by querying the API again. The function recursively calls itself  once to
  *        look for the project in the updated database, then throws a ProjectNotFoundError if it fails.
  */
-let getProjectByName = async (projectName, shouldProjectsUpdate = true) => {
+let getProjectByName = async (projectName, shouldProjectsUpdate = false) => {
 
     // Looks for the project locally
-    try {
-        let projectList = JSON.parse(await fs.readFile("projects.json"));
+    if (existsSync("projects.json") || shouldProjectsUpdate) {
 
-        for (let project in projectList) {
-            if (projectList[project].name.toLowerCase() === projectName) {
-                return projectList[project];
+        let projectList = JSON.parse(await fs.readFile("projects.json"));
+        let project;
+
+        for (let index in projectList) {
+            if (projectList[index].name.toLowerCase() === projectName) {
+                project = projectList[index];
             }
         }
-        // Updates the local project list, then calls itself one last time
-    } catch (e) {
-        if (shouldProjectsUpdate) {
-            await getAllPages("/projects", "projects.json");
-            return await getProjectByName(projectName, false);
+
+        if (project) {
+            return project;
         } else {
             throw new ProjectNotFoundError("Project not found: " + projectName);
         }
+
+        // Updates the local project list, then calls itself one last time
+    } else {
+        await getAllPages("/projects", "projects.json");
+        await getProjectByName(projectName, false);
     }
+
 };
 
 /**
