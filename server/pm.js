@@ -3,8 +3,6 @@
  * @author  Gianmarco Caputo <gianmarco.caputo.uk@gmail.com>
  */
 const webdriver = require("selenium-webdriver"), By = webdriver.By, until = webdriver.until;
-require("dotenv").config();
-
 const pmEmail = process.env.PM_EMAIL;
 const pmPassword = process.env.PM_PASSWORD;
 

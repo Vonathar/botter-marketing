@@ -8,6 +8,7 @@ const pm = require("./pm");
 const errors = require("./errors");
 const enums = require("./enums");
 const {getCampaignInfo} = require("./gitlab");
+require("dotenv").config();
 
 /**
  *  @return Promise - resolved after the driver starts
