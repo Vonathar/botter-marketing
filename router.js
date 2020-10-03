@@ -5,7 +5,7 @@
 const url = require("url");
 
 const routes = {
-    "/url": require("./url")
+    "/info": require("./info")
 };
 
 /**
