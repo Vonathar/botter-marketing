@@ -5,32 +5,18 @@
 
 const webdriver = require("selenium-webdriver"), By = webdriver.By, until = webdriver.until;
 const pm = require("./pm");
-
-// Enum-like for available partners
-const Partners = Object.freeze({
-    LENOVO: Symbol("lenovo"), SAGE: Symbol("sage"), DEMO: Symbol("demo")
-});
-
-// Add Partners to the global scope
-global.Partners = Partners;
-
-// Create a new driver
-const driver = new webdriver.Builder()
-    .forBrowser("firefox")
-    .build();
-
-// Add the driver to the global scope
-global.driver = driver;
+const errors = require("./errors");
+const enums = require("./enums");
+const {getCampaignInfo} = require("./gitlab");
 
 /**
- *  @return Promise - resolved after the driver closes
- *  @desc Implements the main logic for the bot. Calls all the functions from other files before closing the driver.
+ *  @return Promise - resolved after the driver starts
+ *  @desc Creates a new Firefox driver and adds it to the global scope.
  */
-let main = async () => {
-    await driver.get("https://admin.partnermarketing.com/login");
-    await pm.login(Partners.LENOVO);
-    await driver.sleep(5000);
-    driver.quit();
+let createDriver = () => {
+    global.driver = new webdriver.Builder()
+        .forBrowser("firefox")
+        .build();
 };
 
-main();
+module.exports = {getCampaignInfo};
