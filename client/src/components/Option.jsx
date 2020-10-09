@@ -4,7 +4,7 @@ import React, { Component } from "react";
  * Renders a single clickable menu option.
  * @component
  */
-export default class MenuOption extends Component {
+export default class Option extends Component {
   /**
    * Fetches the icon from the /public directory based on the value of prop.icon
    * @return A string that can be directly assigned as a path to an image's src
@@ -19,9 +19,9 @@ export default class MenuOption extends Component {
    * @return A String that can be directly assigned to className
    */
   getClassName = () => {
-    let classNames = "menu-option";
+    let classNames = "home__menu__options__option";
     return this.props.selectedOptionTitle === this.props.title
-      ? classNames + " menu-option--selected"
+      ? classNames + " home__menu__options__option--selected"
       : classNames;
   };
 
@@ -34,12 +34,12 @@ export default class MenuOption extends Component {
         }}
       >
         <img
-          className={"menu-option__icon"}
+          className={"home__menu__options__option__icon"}
           src={this.getIcon()}
           alt={this.props.icon}
         />
-        <h1 className={"menu-option__title"}>{this.props.title}</h1>
-        <p className={"menu-option__description"}>{this.props.description}</p>
+        <h1 className={"home__menu__options__option__title"}>{this.props.title}</h1>
+        <p className={"home__menu__options__option__description"}>{this.props.description}</p>
       </div>
     );
   }
