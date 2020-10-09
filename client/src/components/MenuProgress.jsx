@@ -9,7 +9,10 @@ export default class MenuProgress extends Component {
   render() {
     return (
       <div className={"menuProgress"}>
-        <Loader message={"Placeholder message..."} />{" "}
+        <Loader
+          isActive={this.props.isExecutionBlocked}
+          message={this.props.loadingMessage}
+        />
       </div>
     );
   }

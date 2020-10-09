@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import MenuOption from "./MenuOption";
 import MenuSettings from "./MenuSettings";
 import MenuProgress from "./MenuProgress";
@@ -13,6 +13,8 @@ export default class Home extends Component {
     selectedOptionTitle: "",
     projectName: "pmsa175-023",
     campaignInfo: [],
+    isExecutionBlocked: false,
+    loadingMessage: "Querying API...",
   };
 
   /**
@@ -95,8 +97,11 @@ export default class Home extends Component {
               updateCampaignInfo={this.updateCampaignInfo}
             />
           </div>
-          <div className={"home__menu__result"}>
-            <MenuProgress />
+          <div className={"home__menu__progress"}>
+            <MenuProgress
+              isExecutionBlocked={this.state.isExecutionBlocked}
+              loadingMessage={this.state.loadingMessage}
+            />
           </div>
         </div>
         <p className={"home__footer"}>Copyright © 2020 Gianmarco Caputo</p>
