@@ -1,37 +1,36 @@
 .home {
-
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   padding: 0 75px;
   text-align: center;
-  display: flex;
-  flex-direction: column;
 
   &__menu {
     height: 95%;
 
     &__options {
-      height: 50%;
-      display: flex;
       align-items: flex-end;
-      justify-content: space-evenly;
+      display: flex;
       flex-wrap: wrap;
+      height: 50%;
+      justify-content: space-evenly;
     }
 
     &__settings {
       height: 25%;
     }
 
-    &__result {
-      height: 25%;
+    &__progress {
       display: flex;
       flex-direction: column;
+      height: 25%;
       justify-content: center;
     }
   }
 
   &__footer {
-    height: 5%;
-    @include font-size-xs;
     color: $color-white-1;
+    @include font-size-xs;
+    height: 5%;
   }
 }
