@@ -8,7 +8,9 @@ export default class TextInput extends Component {
   render() {
     return (
       <div className="text-input">
-        <input type="text" required />
+        <input onChange={(event => {
+            this.props.textChangeHandler(event, this.props.stateKey)
+        })} type="text" required />
         <span className="bar" />
         <label>{this.props.label}</label>
       </div>

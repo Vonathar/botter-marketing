@@ -23,13 +23,29 @@ export default class MenuSettings extends Component {
   };
 
   /**
+   * Gets the text content of the input, then updates the state in the "Home" component.
+   * */
+  textChangeHandler = (event, stateKey) => {
+    const value = event.target.value;
+    switch (stateKey) {
+      case "projectName":
+        this.props.setProjectName(value);
+    }
+  };
+
+  /**
    * Renders the settings menu for the "Campaign info" option.
    * @return JSX that represents the available settings for "Campaign info".
    * */
   getCampaignInfoSettings = () => {
     return (
       <div className="menu-settings">
-        <TextInput label={"Project name"} /> <Button text={"START"} />
+        <TextInput
+          label={"Project name"}
+          textChangeHandler={this.textChangeHandler}
+          stateKey={"projectName"}
+        />
+        <Button text={"START"} clickHandler={this.props.updateCampaignInfo} />
       </div>
     );
   };
