@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import MenuOption from "./MenuOption";
 import MenuSettings from "./MenuSettings";
-import MenuResult from "./MenuResult";
+import MenuProgress from "./MenuProgress";
 
 /**
  * Renders the homepage, which includes the menu options and the progress updates.
@@ -60,8 +60,8 @@ export default class Home extends Component {
               selectedOptionTitle={this.state.selectedOptionTitle}
             />
           </div>
-          <div className={"home__menu__progress"}>
-            <MenuResult />
+          <div className={"home__menu__result"}>
+            <MenuProgress />
           </div>
         </div>
         <p className={"home__footer"}>Copyright © 2020 Gianmarco Caputo</p>
