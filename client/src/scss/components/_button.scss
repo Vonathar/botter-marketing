@@ -1,0 +1,16 @@
+.button {
+  @include font-size-s;
+  cursor: pointer;
+  color: $color-pink;
+  text-decoration: none;
+  padding: 10px 25px;
+  border: 1px solid $color-pink;
+  display: inline-block;
+  transition: 0.3s ease all;
+
+  &:hover {
+    color: $color-white-0;
+    border: 1px solid $color-white-0;
+    background: $color-white-2;
+  }
+}

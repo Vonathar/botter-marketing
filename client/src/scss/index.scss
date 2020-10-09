@@ -1,4 +1,11 @@
 @import "variables";
+@import "reset";
 @import "typography";
 @import "mixins";
 @import "general";
+
+@import "components/home";
+@import "components/menuOption";
+@import "components/menuSettings";
+@import "components/button";
+@import "components/textInput";

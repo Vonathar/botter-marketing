@@ -1,4 +1,9 @@
 body {
   @include MaterialBackground(0);
-  color: $color-white;
+  color: $color-white-0;
+}
+
+/* Firefox's default red border for invalid inputs */
+:not(output):-moz-ui-invalid {
+  box-shadow: none !important;
 }
