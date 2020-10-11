@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
  */
 export default class Loader extends Component {
   static propTypes = {
-    /** Indicates whether the component should be rendered. */
+    /** Indicates whether the loader should render. */
     isActive: PropTypes.bool.isRequired,
     /** The message below the loader. */
     message: PropTypes.string.isRequired,
