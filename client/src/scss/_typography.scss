@@ -1,3 +1,9 @@
 * {
   font-family: "Cantarell", serif;
 }
+
+h3 {
+  @include font-size-m;
+  font-weight: normal;
+  color: $color-white-0;
+}

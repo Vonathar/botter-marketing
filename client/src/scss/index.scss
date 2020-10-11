@@ -1,13 +1,12 @@
 @import "variables";
+@import "mixins";
 @import "reset";
 @import "typography";
-@import "mixins";
 @import "general";
 
-@import "components/home";
-@import "components/menuOption";
-@import "components/menuSettings";
-@import "components/button";
-@import "components/textInput";
-@import "components/menuProgress";
-@import "components/loader";
+@import "components/app";
+@import "components/option";
+@import "common/button";
+@import "common/textInput";
+@import "common/loader";
+@import "common/card";
