@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Button from "./Button";
-import TextInput from "./TextInput";
+import Button from "./common/Button";
+import TextInput from "./common/TextInput";
 
 /**
- * Renders the available menu settings for the currently seelcted option.
+ * Renders the available menu settings for the currently selected option.
  * @component
  */
-export default class MenuSettings extends Component {
+export default class Settings extends Component {
   /**
    * Returns the appropriate settings menu for each available option.
    * @return JSX that represents the settings in the DOM, or undefined if
@@ -23,7 +23,7 @@ export default class MenuSettings extends Component {
   };
 
   /**
-   * Gets the text content of the input, then updates the state in the "Home" component.
+   * Gets the text content of the input, then updates the state in the App component.
    * */
   textChangeHandler = (event, stateKey) => {
     const value = event.target.value;
@@ -39,13 +39,13 @@ export default class MenuSettings extends Component {
    * */
   getCampaignInfoSettings = () => {
     return (
-      <div className="menu-settings">
+      <div className="app__settings">
         <TextInput
           label={"Project name"}
           textChangeHandler={this.textChangeHandler}
           stateKey={"projectName"}
         />
-        <Button text={"START"} clickHandler={this.props.updateCampaignInfo} />
+        <Button text={"START"} handleClick={() => {this.props.get("campaignInfo")}} />
       </div>
     );
   };
