@@ -43,10 +43,10 @@ class App extends Component {
 
   /**
    * Updates the state to store the project name.
-   * @param projectName {String} - A String that represents the name of the project
+   * @param event {Event} - The event fired by a text input that holds the string value
    */
-  setProjectName = (projectName) => {
-    this.setState({ projectName });
+  setProjectName = (event) => {
+    this.setState({ projectName: event.target.value });
   };
 
   render() {
