@@ -8,9 +8,9 @@ import PropTypes from "prop-types";
 export default class Button extends Component {
   static propTypes = {
     /** The event handler for click events on the button. */
-    handleClick: PropTypes.func,
+    handleClick: PropTypes.func.isRequired,
     /** The visible text on the button. */
-    text: PropTypes.string,
+    text: PropTypes.string.isRequired,
   };
 
   render() {
