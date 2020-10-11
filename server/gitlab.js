@@ -186,7 +186,7 @@ let getCampaignInfo = async (projectName) => {
         for (let url in urls) {
 
             if (urls[url].includes("edit-campaign")) {
-                campaignInfo.edit = urls[url];
+                campaignInfo.upload = urls[url];
             } else if (urls[url].includes("create-campaign")) {
                 campaignInfo.test = urls[url];
             } else if (urls[url].includes("zpl.io")) {
@@ -204,7 +204,7 @@ let getCampaignInfo = async (projectName) => {
          */
         let validateCampaignInfo = async (campaignInfo) => {
 
-            let requiredInfo = ["edit", "test"];
+            let requiredInfo = ["upload", "test"];
             let missingInfo = [];
 
             requiredInfo.forEach(info => {
