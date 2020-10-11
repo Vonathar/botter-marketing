@@ -14,7 +14,7 @@ class App extends Component {
     selectedOptionTitle: "",
     projectName: "pmsa175-023",
     queryType: "",
-    queryResponse: [],
+    queryResponse: {},
     isWaitingAsync: false,
     shouldResultRender: false,
     loadingMessage: "",
@@ -91,7 +91,6 @@ class App extends Component {
             isActive={
               !this.state.isWaitingAsync && this.state.shouldResultRender
             }
-            queryType={this.state.queryType}
             queryResponse={this.state.queryResponse}
           />
         </div>
