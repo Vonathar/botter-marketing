@@ -11,6 +11,17 @@ import PropTypes from "prop-types";
  *    handleClick={myFunc}
  *    buttonText="bar"
  * />
+ * @example
+ * <Card
+ *    title="foo"
+ *    handleClick={myFunc}
+ *    // default text: "GO"
+ * />
+ * @example
+ * <Card
+ *    title="foo"
+ *    // button disabled
+ * />
  */
 export default class Card extends Component {
   static propTypes = {
