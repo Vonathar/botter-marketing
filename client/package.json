@@ -34,6 +34,9 @@
     ]
   },
   "devDependencies": {
-    "prettier": "^2.1.2"
-  }
+    "prettier": "^2.1.2",
+    "prop-types": "^15.7.2",
+    "react-styleguidist": "^11.1.0"
+  },
+  "prettier": {}
 }
