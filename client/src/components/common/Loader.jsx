@@ -4,6 +4,11 @@ import PropTypes from "prop-types";
 /**
  * Renders a basic loader with an infinite animation.
  * @component
+ * @example
+ * <Loader
+ *    isActive={myBool}
+ *    message="Loading foo.."
+ * />
  */
 export default class Loader extends Component {
   static propTypes = {
