@@ -24,7 +24,7 @@ export default class Option extends Component {
     /** The event handler for click events on the entire component. */
     handleOptionClick: PropTypes.func.isRequired,
     /** The title of the option that is currently selected. */
-    selectedOptionTitle: PropTypes.string
+    selectedOptionTitle: PropTypes.string,
   };
 
   /**
