@@ -6,22 +6,26 @@ import PropTypes from "prop-types";
  * Renders a card with an optional button.
  * @component
  * @example
+ * ```jsx
  * <Card
  *    title="foo"
  *    handleClick={myFunc}
  *    buttonText="bar"
  * />
+ * ```
  * @example
+ * ```jsx
+ * // Displays the default text: "GO"
  * <Card
  *    title="foo"
  *    handleClick={myFunc}
- *    // default text: "GO"
  * />
+ * ```
  * @example
- * <Card
- *    title="foo"
- *    // button disabled
- * />
+ * ```jsx
+ * // Does not render any button
+ * <Card title="foo" />
+ * ```
  */
 export default class Card extends Component {
   static propTypes = {

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
  * Renders a single clickable menu option.
  * @component
  * @example
+ * ```jsx
  * <Option
  *    icon="lens"
  *    title="foo"
@@ -12,6 +13,7 @@ import PropTypes from "prop-types";
  *    handleClick={myFunc}
  *    selectedOptionTitle="Campaign Info"
  * />
+ * ```
  */
 export default class Option extends Component {
   static propTypes = {

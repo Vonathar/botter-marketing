@@ -5,10 +5,12 @@ import PropTypes from "prop-types";
  * Renders a text input with a label in material style.
  * @component
  * @example
+ * ```jsx
  * <TextInput
  *    handleTextChange={myFunc}
  *    label="bar"
  * />
+ * ```
  */
 export default class TextInput extends Component {
   static propTypes = {

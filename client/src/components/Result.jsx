@@ -6,10 +6,12 @@ import PropTypes from "prop-types";
  * Graphically renders the Result of the API calls.
  * @component
  * @example
+ * ```jsx
  * <Result
  *    isActive={myBool}
  *    queryResponse={foo: "bar", ..}
  * />
+ * ```
  */
 export default class Result extends Component {
   static propTypes = {

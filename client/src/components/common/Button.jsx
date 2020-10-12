@@ -5,10 +5,12 @@ import PropTypes from "prop-types";
  * Renders a button with a custom click handler.
  * @component
  * @example
+ * ```jsx
  * <Button
  *    handleClick={myFunc}
  *    text="foo"
  * />
+ * ```
  */
 export default class Button extends Component {
   static propTypes = {
