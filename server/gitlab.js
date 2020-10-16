@@ -110,9 +110,9 @@ let getAllPages = async (endpoint, outputFile = null, extraParams) => {
 let getProjectByName = async (projectName, shouldProjectsUpdate = false) => {
 
     // Looks for the project locally
-    if (existsSync("server/projects.json") || shouldProjectsUpdate) {
+    if (existsSync("projects.json") || shouldProjectsUpdate) {
 
-        let projectList = JSON.parse(await fs.readFile("server/projects.json"));
+        let projectList = JSON.parse(await fs.readFile("projects.json"));
         let project;
 
         for (let index in projectList) {
@@ -129,7 +129,7 @@ let getProjectByName = async (projectName, shouldProjectsUpdate = false) => {
 
         // Updates the local project list, then calls itself one last time
     } else {
-        await getAllPages("/projects", "server/projects.json");
+        await getAllPages("/projects", "projects.json");
         await getProjectByName(projectName, false);
     }
 
