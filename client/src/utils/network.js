@@ -49,7 +49,7 @@ export async function get(queryType) {
   };
 
   // Builds the URL
-  let url = "http://127.0.0.1:8025/";
+  let url = "https://botter-marketing.herokuapp.com/";
   switch (queryType) {
     case QueryType.CAMPAIGN_INFO: {
       url += `info?projectName=${this.state.projectName}`;
