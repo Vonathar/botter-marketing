@@ -8,10 +8,10 @@
  *  @extends Error
  */
 class ElementNotFoundError extends Error {
-    constructor(message) {
-        super(message);
-        this.name = "ElementNotFoundError";
-    }
+  constructor(message) {
+    super(message);
+    this.name = "ElementNotFoundError";
+  }
 }
 
 /**
@@ -19,10 +19,10 @@ class ElementNotFoundError extends Error {
  *  @extends Error
  */
 class ProjectNotFoundError extends Error {
-    constructor(message) {
-        super(message);
-        this.name = "ProjectNotFoundError";
-    }
+  constructor(message) {
+    super(message);
+    this.name = "ProjectNotFoundError";
+  }
 }
 
 /**
@@ -30,11 +30,12 @@ class ProjectNotFoundError extends Error {
  *  @extends Error
  */
 class CampaignInfoParseError extends Error {
-    constructor(message) {
-        super(message);
-        this.name = "CampaignInfoParseError";
-    }
+  constructor(message) {
+    super(message);
+    this.name = "CampaignInfoParseError";
+  }
 }
 
 global.ProjectNotFoundError = ProjectNotFoundError;
 global.CampaignInfoParseError = CampaignInfoParseError;
+global.ElementNotFoundError = ElementNotFoundError;
