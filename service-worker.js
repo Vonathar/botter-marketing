@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/botter-marketing/precache-manifest.4f2e3c27579aa2b438fb2aa18f9f4415.js"
+  "/botter-marketing/precache-manifest.f4faf869fd558a4f653de477558664cb.js"
 );
 
 self.addEventListener('message', (event) => {

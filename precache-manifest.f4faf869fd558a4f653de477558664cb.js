@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bd45be41477cf92aa4836ad1dc35f7de",
+    "revision": "98a07ab4c0b193db18e34a1e2d99acfa",
     "url": "/botter-marketing/index.html"
   },
   {
-    "revision": "559f709c369bda366f62",
+    "revision": "d0ffb514612840ae7b8a",
     "url": "/botter-marketing/static/css/main.c82e60be.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/botter-marketing/static/js/2.61fdb999.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "559f709c369bda366f62",
-    "url": "/botter-marketing/static/js/main.6b2b2ab9.chunk.js"
+    "revision": "d0ffb514612840ae7b8a",
+    "url": "/botter-marketing/static/js/main.61ea07c2.chunk.js"
   },
   {
     "revision": "5544953a030cd063c2fe",

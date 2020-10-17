@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/botter-marketing/static/css/main.c82e60be.chunk.css",
-    "main.js": "/botter-marketing/static/js/main.6b2b2ab9.chunk.js",
-    "main.js.map": "/botter-marketing/static/js/main.6b2b2ab9.chunk.js.map",
+    "main.js": "/botter-marketing/static/js/main.61ea07c2.chunk.js",
+    "main.js.map": "/botter-marketing/static/js/main.61ea07c2.chunk.js.map",
     "runtime-main.js": "/botter-marketing/static/js/runtime-main.91203e4e.js",
     "runtime-main.js.map": "/botter-marketing/static/js/runtime-main.91203e4e.js.map",
     "static/js/2.61fdb999.chunk.js": "/botter-marketing/static/js/2.61fdb999.chunk.js",
     "static/js/2.61fdb999.chunk.js.map": "/botter-marketing/static/js/2.61fdb999.chunk.js.map",
     "index.html": "/botter-marketing/index.html",
-    "precache-manifest.4f2e3c27579aa2b438fb2aa18f9f4415.js": "/botter-marketing/precache-manifest.4f2e3c27579aa2b438fb2aa18f9f4415.js",
+    "precache-manifest.f4faf869fd558a4f653de477558664cb.js": "/botter-marketing/precache-manifest.f4faf869fd558a4f653de477558664cb.js",
     "service-worker.js": "/botter-marketing/service-worker.js",
     "static/css/main.c82e60be.chunk.css.map": "/botter-marketing/static/css/main.c82e60be.chunk.css.map",
     "static/js/2.61fdb999.chunk.js.LICENSE.txt": "/botter-marketing/static/js/2.61fdb999.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.91203e4e.js",
     "static/js/2.61fdb999.chunk.js",
     "static/css/main.c82e60be.chunk.css",
-    "static/js/main.6b2b2ab9.chunk.js"
+    "static/js/main.61ea07c2.chunk.js"
   ]
 }
