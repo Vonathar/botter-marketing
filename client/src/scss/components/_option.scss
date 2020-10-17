@@ -1,6 +1,5 @@
 .app__options__option {
   user-select: none;
-
   @include MaterialBackground(1);
   border-color: transparent;
   border-radius: 2px;
