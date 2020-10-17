@@ -48,8 +48,12 @@ export async function get(queryType) {
     });
   };
 
-  // Builds the URL
-  let url = "https://botter-marketing.herokuapp.com/";
+  /**
+   * Builds the URL
+   * Local -> http://127.0.0.1:5000/
+   * Prod  -> https://botter-marketing.herokuapp.com/
+   * */
+  let url = "http://127.0.0.1:5000/";
   switch (queryType) {
     case QueryType.CAMPAIGN_INFO: {
       url += `info?projectName=${this.state.projectName}`;
