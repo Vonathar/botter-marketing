@@ -15,13 +15,13 @@ const botterMarketing = require("./botter-marketing");
  *        from botterMarketing. An example: /info?projectName=pmsa175-024
  */
 let handleGet = async (req, res) => {
-    const projectName = url.parse(req.url, true).query.projectName;
-    const campaignInfo = await botterMarketing.getCampaignInfo(projectName);
-    utils.respond(res, campaignInfo);
+  const projectName = url.parse(req.url, true).query.projectName.toLowerCase().trim();
+  const campaignInfo = await botterMarketing.getCampaignInfo(projectName);
+  utils.respond(res, campaignInfo);
 };
 
 const actions = {
-    "GET": handleGet
+  "GET": handleGet
 };
 
 exports.requestHandler = utils.actionDispatcher(actions);
