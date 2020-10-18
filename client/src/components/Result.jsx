@@ -31,7 +31,13 @@ export default class Result extends Component {
 
     for (let objKey in queryResponse) {
       resultItems.push(
-        <Card title={objKey} key={objKey} url={queryResponse[objKey]} />
+        <Card
+          title={objKey}
+          key={objKey}
+          handleClick={() => {
+            window.open(queryResponse[objKey], "_blank");
+          }}
+        />
       );
     }
 
