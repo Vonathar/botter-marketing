@@ -12,7 +12,7 @@ import Result from "./components/Result";
 class App extends Component {
   state = {
     selectedOptionTitle: "",
-    projectName: "pmsa175-023",
+    projectName: "",
     queryType: "",
     queryResponse: {},
     isWaitingAsync: false,
