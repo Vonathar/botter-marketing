@@ -49,11 +49,12 @@ export async function get(queryType) {
   };
 
   /**
-   * Builds the URL
+   * Builds the URL for requests, dynamically switching between dev/prod
    * Local -> http://127.0.0.1:5000/
    * Prod  -> https://botter-marketing.herokuapp.com/
    * */
-  let url = "http://127.0.0.1:5000/";
+  let url = process.env.NODE_ENV === "development" ? "http://127.0.0.1:5000/" : "https://botter-marketing.herokuapp.com/";
+  console.log(process.env.NODE_ENV);
   switch (queryType) {
     case QueryType.CAMPAIGN_INFO: {
       url += `info?projectName=${this.state.projectName}`;
