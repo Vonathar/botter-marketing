@@ -41,14 +41,22 @@ export default class Card extends Component {
     buttonText: "GO",
   };
 
-  render() {
-    return (
-      <div className={"card"}>
-        <h1 className={"card__title"}>{this.props.title}</h1>
+  getButton = () => {
+    if (this.props.handleClick) {
+      return (
         <Button
           handleClick={this.props.handleClick}
           text={this.props.buttonText}
         />
+      );
+    }
+  };
+
+  render() {
+    return (
+      <div className={"card"}>
+        <h1 className={"card__title"}>{this.props.title}</h1>
+        {this.getButton()}
       </div>
     );
   }
