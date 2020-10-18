@@ -39,12 +39,16 @@ export async function get(queryType) {
    * @desc Calls the API of BotterMarketing using the dynamic URL defined in the local scope, then
    *       returns the response data. Renders the Loader component for the duration of the call.
    * @return {Object} the data received in the response from the API.
+   * @return {String} the error message in case of a failed request.
    */
   const queryApi = async () => {
     setIsWaitingAsync(true, "Querying API...");
     return axios.get(url).then((response) => {
       setIsWaitingAsync(false);
       return response.data;
+    }).catch((err) => {
+      setIsWaitingAsync(false);
+      return err.response.data.message;
     });
   };
 

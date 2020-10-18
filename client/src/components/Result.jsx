@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Card from "./common/Card";
 import PropTypes from "prop-types";
+import Error from "./common/Error";
 
 /**
  * Graphically renders the Result of the API calls.
@@ -29,22 +30,21 @@ export default class Result extends Component {
     const queryResponse = this.props.queryResponse;
     let resultItems = [];
 
-    for (let objKey in queryResponse) {
-      resultItems.push(
-        <Card
-          title={objKey}
-          key={objKey}
-          handleClick={() => {
-            window.open(queryResponse[objKey], "_blank");
-          }}
-        />
-      );
-    }
-
-    if (resultItems.length < 1) {
-      return <h3>No results found.</h3>;
-    } else {
+    if (typeof queryResponse === 'object' && queryResponse !== null) {
+      for (let objKey in queryResponse) {
+        resultItems.push(
+          <Card
+            title={objKey}
+            key={objKey}
+            handleClick={() => {
+              window.open(queryResponse[objKey], "_blank");
+            }}
+          />
+        );
+      }
       return resultItems;
+    } else {
+      return <Error message={queryResponse} />
     }
   };
 
