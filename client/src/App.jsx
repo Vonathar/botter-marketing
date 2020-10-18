@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Option from "./components/Option";
 import Settings from "./components/Settings";
 import { get } from "./utils/network";
+import { validateProjectName } from "./utils/input-validation";
 import Loader from "./components/common/Loader";
 import Result from "./components/Result";
 
@@ -12,7 +13,7 @@ import Result from "./components/Result";
 class App extends Component {
   state = {
     selectedOptionTitle: "",
-    projectName: "",
+    projectName: null,
     queryType: "",
     queryResponse: {},
     isWaitingAsync: false,
@@ -42,11 +43,16 @@ class App extends Component {
   };
 
   /**
-   * Updates the state to store the project name.
+   * Updates the state to store the project name after validating the given input.
    * @param event {Event} - The event fired by a text input that holds the string value
    */
   setProjectName = (event) => {
-    this.setState({ projectName: event.target.value });
+    const input = event.target.value;
+    if (validateProjectName(input)) {
+      this.setState({ projectName: input });
+    } else {
+      this.setState({ projectName: null });
+    }
   };
 
   render() {
@@ -59,7 +65,7 @@ class App extends Component {
             description={"This feature is not yet available!"}
             handleOptionClick={this.handleOptionClick}
             selectedOptionTitle={this.state.selectedOptionTitle}
-          />{" "}
+          />
           <Option
             icon={"edit"}
             title={"Edit campaign"}
@@ -80,6 +86,7 @@ class App extends Component {
         <Settings
           selectedOptionTitle={this.state.selectedOptionTitle}
           setProjectName={this.setProjectName}
+          projectName={this.state.projectName}
           get={this.get}
         />
         <div className={"app__progress"}>

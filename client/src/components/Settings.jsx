@@ -49,6 +49,7 @@ export default class Settings extends Component {
           handleClick={() => {
             this.props.get("campaignInfo");
           }}
+          isActive={this.props.projectName !== null}
         />
       </div>
     );
