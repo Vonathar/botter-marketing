@@ -3,3 +3,4 @@
 node_modules
 server/projects.json
 build
+/TODO.txt
