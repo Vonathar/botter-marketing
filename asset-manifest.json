@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/botter-marketing/static/css/main.c82e60be.chunk.css",
-    "main.js": "/botter-marketing/static/js/main.61ea07c2.chunk.js",
-    "main.js.map": "/botter-marketing/static/js/main.61ea07c2.chunk.js.map",
+    "main.css": "/botter-marketing/static/css/main.5e14986e.chunk.css",
+    "main.js": "/botter-marketing/static/js/main.1610d207.chunk.js",
+    "main.js.map": "/botter-marketing/static/js/main.1610d207.chunk.js.map",
     "runtime-main.js": "/botter-marketing/static/js/runtime-main.91203e4e.js",
     "runtime-main.js.map": "/botter-marketing/static/js/runtime-main.91203e4e.js.map",
     "static/js/2.61fdb999.chunk.js": "/botter-marketing/static/js/2.61fdb999.chunk.js",
     "static/js/2.61fdb999.chunk.js.map": "/botter-marketing/static/js/2.61fdb999.chunk.js.map",
     "index.html": "/botter-marketing/index.html",
-    "precache-manifest.f4faf869fd558a4f653de477558664cb.js": "/botter-marketing/precache-manifest.f4faf869fd558a4f653de477558664cb.js",
+    "precache-manifest.9cc95478d187897ea6b6ebac0fe0322e.js": "/botter-marketing/precache-manifest.9cc95478d187897ea6b6ebac0fe0322e.js",
     "service-worker.js": "/botter-marketing/service-worker.js",
-    "static/css/main.c82e60be.chunk.css.map": "/botter-marketing/static/css/main.c82e60be.chunk.css.map",
+    "static/css/main.5e14986e.chunk.css.map": "/botter-marketing/static/css/main.5e14986e.chunk.css.map",
     "static/js/2.61fdb999.chunk.js.LICENSE.txt": "/botter-marketing/static/js/2.61fdb999.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.91203e4e.js",
     "static/js/2.61fdb999.chunk.js",
-    "static/css/main.c82e60be.chunk.css",
-    "static/js/main.61ea07c2.chunk.js"
+    "static/css/main.5e14986e.chunk.css",
+    "static/js/main.1610d207.chunk.js"
   ]
 }
