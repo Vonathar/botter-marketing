@@ -1,0 +1,20 @@
+.error {
+  @include MaterialBackground(1);
+  border-radius: 2px;
+  padding: 20px 30px;
+  cursor: context-menu;
+
+  &:hover {
+    @include MaterialBackground(2);
+  }
+
+  &__icon {
+    width: 20px;
+    margin-bottom: 7px;
+  }
+
+  &__message {
+    @include font-size-s;
+    color: $color-white-0;
+  }
+}
